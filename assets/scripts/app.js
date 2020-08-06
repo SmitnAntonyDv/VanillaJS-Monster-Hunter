@@ -34,17 +34,23 @@ const writeToLog = (event, value, monsterHealth, playerHealth) => {
     finalmonsterHealth: monsterHealth,
     finalPlayerHealth: playerHealth,
   };
-  if (
-    event === LOG_EVENT_PLAYER_ATTACK ||
-    event === LOG_EVENT_PLAYER_STRONG_ATTACK
-  ) {
-    logEntry.target = 'MONSTER';
-  } else if (event === LOG_EVENT_MONSTER_ATTACK) {
-    logEntry.target = 'PLAYER';
-  } else if (event === LOG_EVENT_PLAYER_HEAL) {
-    logEntry.target = 'PLAYER';
-  } else if (event === LOG_EVENT_PLAYER_GAME_OVER) {
-    logEntry.target = 'N/A - Game Over';
+
+  switch (event) {
+    case LOG_EVENT_PLAYER_ATTACK:
+      logEntry.target = 'MONSTER';
+      break;
+    case LOG_EVENT_PLAYER_STRONG_ATTACK:
+      logEntry.target = 'MONSTER';
+      break;
+    case LOG_EVENT_MONSTER_ATTACK:
+      logEntry.target = 'PLAYER';
+      break;
+    case LOG_EVENT_PLAYER_HEAL:
+      logEntry.target = 'PLAYER';
+      break;
+    case LOG_EVENT_PLAYER_GAME_OVER:
+      logEntry.status = 'N/A - Game Over';
+      break;
   }
   battleLog.push(logEntry);
 };
